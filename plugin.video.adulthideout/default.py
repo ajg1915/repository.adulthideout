@@ -30,6 +30,7 @@ homemenu = xbmc.translatePath(os.path.join(home, 'resources', 'playlists'))
 
 
 #define webpages in order they were added.
+TranntTubeTV="http://www.trannytube.tv/"
 redtube = 'https://www.redtube.com'
 xvideos = 'http://www.xvideos.com'
 xhamster = 'https://xhamster.com'
@@ -98,7 +99,7 @@ def home():
 
 #define main directory and starting page
 def main():
-    add_dir('A Shemale Tube [COLOR yellow] Videos[/COLOR]', ashemaletube + '/videos/newest/' , 2, logos + 'ashemaletube.png', fanart)
+    add_dir('trannytube.tv categories [COLOR yellow] Videos[/COLOR]', trannytubetv + 'categories' , 2, logos + 'ashemaletube.png', fanart)
     #(removing Beeg for now, until i find a solution for it)
     #add_dir('Beeg [COLOR yellow] Videos[/COLOR]', beeg_url(), 2, logos + 'beeg.png', fanart)
     add_dir('Efukt [COLOR yellow] Videos[/COLOR]', efukt, 2, logos + 'efukt.png', fanart)
@@ -147,8 +148,8 @@ def search():
         keyb.doModal()
         if (keyb.isConfirmed()):
             searchText = urllib.quote_plus(keyb.getText())
-        if 'ashemaletube' in name:
-            url = ashemaletube + '/search/' + searchText + '/page1.html'
+        if 'trannytube.tv' in name:
+            url = trannytubetv + '/search/' + searchText + '/page1.html'
             start(url)
         elif 'beeg' in name:
             url = beeg_search_url(searchText)
@@ -263,33 +264,33 @@ def search():
 
 def start(url):
     home()
-    if 'ashemaletube' in url:
-        add_dir('[COLOR lightgreen]ashemaletube.com     [COLOR red]Search[/COLOR]', ashemaletube, 1, logos + 'ashemaletube.png', fanart)
-        add_dir('[COLOR lime]Categories[/COLOR]', ashemaletube + '/tags/', 30, logos + 'ashemaletube.png', fanart)
-        add_dir('[COLOR lime]Models[/COLOR]', ashemaletube + '/models/', 55, logos + 'ashemaletube.png', fanart)
+    if 'trannytube.tv' in url:
+        add_dir('[COLOR lightgreen]trannytube.tv     [COLOR red]Search[/COLOR]', ashemaletube, 1, logos + 'ashemaletube.png', fanart)
+        add_dir('[COLOR lime]categories[/COLOR]', trannytubetv + '/categories/', 30, logos + 'ashemaletube.png', fanart)
+        add_dir('[COLOR lime]PornStars[/COLOR]', trannytubetv + '/pornstars/', 55, logos + 'ashemaletube.png', fanart)
         content = make_request(url)
         if 'model' in url:
             match = re.compile('<div class="thumb vidItem" data-video-id=".+?">.+?<a href="([^"]*)" >.+?src="([^"]*)" alt="([^"]*)".+?<span class="fs11 viddata flr"(.+?)>', re.DOTALL).findall(content)
             for url, thumb, name, dummy in match:
                 name = name.replace('&amp;', '&')
                 if 'HD' in dummy:
-                    add_link(name + '[COLOR yellow]' +' [HD]' +'[/COLOR]', ashemaletube + url, 4, thumb, fanart)
+                    add_link(name + '[COLOR yellow]' +' [HD]' +'[/COLOR]', trannytubetv + url, 4, thumb, fanart)
                 else:
-                    add_link(name, ashemaletube + url, 4, thumb, fanart)
+                    add_link(name, trannytubetv + url, 4, thumb, fanart)
         else:
             match = re.compile('<div class="thumb vidItem" data-video-id=".+?">.+?<a href="([^"]*)" >.+?src="([^"]*)" alt="([^"]*)".+?<span class="fs11 viddata flr"(.+?)</span>([:\d]+)</span>', re.DOTALL).findall(content)
             for url, thumb, name, dummy, duration in match:
                 name = name.replace('&amp;', '&')
                 if 'HD' in dummy:
-                    add_link(name + '[COLOR yellow]' +' [HD]' +'[/COLOR]' +' [COLOR lime]('+ duration + ')[/COLOR]', ashemaletube + url, 4, thumb, fanart)
+                    add_link(name + '[COLOR yellow]' +' [HD]' +'[/COLOR]' +' [COLOR lime]('+ duration + ')[/COLOR]', trannytubetv + url, 4, thumb, fanart)
                 else:
-                    add_link(name + ' [COLOR lime]('+ duration + ')[/COLOR]', ashemaletube + url, 4, thumb, fanart)
+                    add_link(name + ' [COLOR lime]('+ duration + ')[/COLOR]', trannytubetv + url, 4, thumb, fanart)
         try:
             match = re.compile('<link rel="next" href="(.+?)" />').findall(content)
-            add_dir('[COLOR blue]Next  Page  >>>>[/COLOR]', ashemaletube + match[0], 2, logos + 'ashemaletube.png', fanart)
+            add_dir('[COLOR blue]Next  Page  >>>>[/COLOR]', trannytubetv + match[0], 2, logos + 'ashemaletube.png', fanart)
         except:
             match = re.compile('<a class="pageitem rightKey" href="(.+?)" title="Next">Next</a>').findall(content)
-            add_dir('[COLOR blue]Next  Page  >>>>[/COLOR]', ashemaletube + match[0], 2, logos + 'ashemaletube.png', fanart)
+            add_dir('[COLOR blue]Next  Page  >>>>[/COLOR]', trannytubetv + match[0], 2, logos + 'ashemaletube.png', fanart)
 
     elif 'beeg' in url:
         add_dir('[COLOR lightgreen]beeg.com     [COLOR red]Search[/COLOR]', beeg_url(), 1, logos + 'beeg.png', fanart)
@@ -1917,7 +1918,7 @@ elif mode == 29:
     hentaigasm_categories(url)
 
 elif mode == 30:
-    ashemaletube_categories(url)
+   trannytubetv_categories(url)
 
 elif mode == 31:
     youporn_categories(url)
